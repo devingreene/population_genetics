@@ -1,0 +1,24 @@
+#Binaries
+/fitForm
+/feedFitForm
+/genFitForm
+/twoisland
+/uniform
+
+#Binary files made by program
+/census
+/mig
+/mut
+/recom
+
+#Error logs
+/err_log
+
+#gdb Initialization files
+/.gdbinit
+
+# Saves
+/saves
+
+#Misc
+/rand_history
