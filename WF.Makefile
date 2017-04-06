@@ -9,7 +9,7 @@ OPTIMIZATION_FLAG = -O3 -Wno-unused-result
 endif
 
 MAIN_SOURCE_FILES = mainWF.c iterateWF.c darwinstep.c mutstep.c recomstep.c \
-migstep.c 
+	migstep.c 
 
 AUXILIARY_SOURCE_FILES = makeMut.c makeRecom.c makeMig.c settle.c readMut.c readMig.c readRecom.c readParameters.c
 

@@ -7,26 +7,6 @@
 #include<string.h>
 #include"forthis.h"
 
-/* This is a basic population genetic model which takes into account */
-/* fitness dieffentials, migration, mutation, and recombination.  Each */
-/* simulation begins from an initial state consisting of a set of islands */
-/* with migration rates between them; a set of haplotypes on each island, */
-/* with mutation, recombination, and fitness differentials taken into account. */
-/* Each island population is effectively subject to a Wright-Fisher */
-/* process, in addition to changes in the haplotype distribution due to */
-/* migrations to and from other islands.  The parameters used in the */
-/* simulations are read from the following data files: */
-
-/* census: Contains initial haplotype distribution on each island */
-/* 	`("census") as well as fitnesses of each haplotypes */
-/* mut: 	Mutational rates amongst haplotypes */
-/* recom: 	Recombination rates amongst haplotypes */
-/* mig: 	Migration rates amongst islands   */
-
-/* Note that migration may be set to be a periodic phenomenon via the */
-/* argument `mperiod=<num>' (see code for details).  The argument is */
-/* optional.  If not present, it will default to '1`, and migration will */
-/* occur every generation. */
 
 gsl_rng * R;
 void iterateWF(const int nislands,const int nhap,			\

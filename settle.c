@@ -7,16 +7,6 @@
 #include<sys/stat.h>
 #include"forthis.h"
 
-/* `Settle' allows the user to create, populate, and assign fitnesses in */
-/* an island model.  With the argument `create', the user is prompted to */
-/* enter the number of haplotypes and islands.  With the argument */
-/* `populate', one is prompted to enter the island # followed by the */
-/* distribution of haplotypes on that island.  With the argument */
-/* `fitness', the user is prompted to enter the fitnesses of the */
-/* haplotype.  The default fitness is 1.  The default number of */
-/* haplotypes on a particular island is 0.  Whether created or modified, */
-/* the file has name `census' and stores its data is binary form. */
-
 int main(int argc, char **argv){
   if(argc <2 ){
     fprintf(stderr,"keyword is one of %s, %s, %s, or %s\n",\

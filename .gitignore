@@ -5,7 +5,18 @@
 /twoisland
 /uniform
 
-#Binary files made by program
+#Executable files
+/execWF
+/makeMig
+/makeMut
+/makeRecom
+/readMig
+/readMut
+/readParameters
+/readRecom
+/settle
+
+# Data files used by program
 /census
 /mig
 /mut

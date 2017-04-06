@@ -3,25 +3,6 @@
 #include<string.h>
 #include"forthis.h"
 
-/* Creates the data file `mig' containing the parameters for inter-island */
-/* migration.  There are three keywords: */
-
-/* `array': Must be followed dim1 dim2.  Forms a dim1 by dim2 array of */
-/* islands.  Adjacent islands (where diagonal neighbors are considered */
-/* adjacent) exchange migrants at equal rates. */
-
-/* `torus': Like array, but migration "wraps around" */
-
-/* `flat': Starting with a set number of islands and a default migration */
-/* 	rate between any pair of islands, program then prompts user to */
-/* 	enter whatever migration rates for whatever pair of islands */
-/* 	she see fit.  Note that this is asymmetric.  The rate `1->2' */
-/* 	may differ from `2->1' */
-
-/* `symmetric': Like `flat', but migration rates are constrained to be */
-/* 	     symmetric between islands in a pair. */
-
-
 int main(int argc,char** argv){
   if(argc==1){
     printf("./makeMig `keyword' ...\n");

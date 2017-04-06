@@ -5,14 +5,6 @@
 
 #define mut ((double(*)[nhap])Mut)
 
-/* Creates a mutation matrix data file name `mut'.  Keyword `morgan' */
-/* should be followed by number of loci and per-locus mutation rate */
-/* produces correct matrix, where haplotypes are treated as bit strings */
-/* and ordered numerically as if they were base 2 numbers. Keyword `flat' */
-/* prompts for entry of mutation rates 1->2, 1->3, ..., 2->1, 2->2, ..., */
-/* n->1, ... Keyword `symmetric' prompts for entry of mutation rate 1->2, */
-/* 1->3, ...,2->3, ..., n-1->n.   */
-
 int main(int argc, char** argv ){
   if(argc==1){
     printf("./makeMut `keyword' ...\n");

@@ -3,24 +3,6 @@
 #include<string.h>
 #include"forthis.h"
 
-/* Discussion on keywords: */
-
-/* `morgan' :  */
-
-/* Keyword `morgan' should be followed by: */
-
-/* 1. (Optional) The the keyword `linkage' followed by <num of loci> */
-/* linkage parameters, expressed as numbers between 0 and 0.5 (0 is full */
-/* linkage, 0.5 is no linkage).   */
-
-/* 2. The number of loci and a recombination rate `R`.  Note that */
-/* recombination rate is a bit non-conventional here.  With R==0, there */
-/* is no recombination -- the haplotypes effective clone themselves. */
-/* With R==1, haplotypes randomly pair, and the progeny are determined by */
-/* a coin flip at each locus on each parent.  Intermediate values 0 < R < */
-/* 1 are equivalent to proportion R of the population mating with */
-/* recombination as just described, and proportion 1-R cloning. */
-
 int main(int argc,char** argv){
   if(argc==1){
     printf("./makeRecom `keyword' ...\n");
