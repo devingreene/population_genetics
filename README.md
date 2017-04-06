@@ -1,4 +1,4 @@
--- vim: set tw=70: --
+# vim: set tw=70:
 
 [ Note:  This description only applies to the Wright-Fisher part of
 the program.  There is a logistic model `carrying capacity' type
@@ -77,7 +77,7 @@ mutation rate 1->2,g 1->3, ...,2->3, ..., n-1->n.
 	symmetric between islands in a pair.
 
 
-`makeRecome' creates a recombination matrix data file name `recom'.
+`makeRecom' creates a recombination matrix data file name `recom'.
 The following is a description of the various keywords:
 
 	`morgan' :
@@ -89,11 +89,14 @@ The following is a description of the various keywords:
 	linkage, 0.5 is no linkage).
 	
 	2. The number of loci and a recombination rate `R`.  Note that
-	recombination rate is a bit non-conventional here.  With R==0, there
-	is no recombination -- the haplotypes effective clone themselves.
-	With R==1, haplotypes randomly pair, and the progeny are determined by
-	a coin flip at each locus on each parent.  Intermediate values 0 < R <
-	1 are equivalent to proportion R of the population mating with
-	recombination as just described, and proportion 1-R cloning.
+	recombination rate is defined somewhat unconventionally here.
+	With R==0, there is no recombination -- the haplotypes effectively clone
+	themselves.  With R==1, haplotypes randomly pair, and the progeny
+	are determined by a coin flip at each locus on each parent.
+	Intermediate values 0 < R < 1 are equivalent to proportion R of the
+	population mating with recombination as just described, and proportion
+	1-R cloning.
 
+Finally, to run the program, just enter 
 
+./exec <number of generations> <number of simulations> mperiod=<migratory period>
