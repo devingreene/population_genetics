@@ -2,7 +2,7 @@
 
 [ Note:  This description only applies to the Wright-Fisher part of
 the program.  There is a logistic model `carrying capacity' type
-version which can be compile using CC.Makefile.  At some point I will
+version which can be compiled using CC.Makefile.  At some point I will
 write a description of it. ]
 
 This is a basic population genetic model which takes into account fitness
@@ -10,7 +10,8 @@ differentials, migration, mutation, and recombination.  Each simulation begins
 from an initial state consisting of a set of islands with migration rates
 between them, and a set of haplotypes on each island, with mutation,
 recombination, and fitness differentials taken into account.  Each island
-population is effectively subject to a Wright-Fisher process, in addition to
+population is effectively subject to a Wright-Fisher process [ -- I need
+to say more about this -- ], in addition to
 changes in the haplotype distribution due to migrations to and from other
 islands.  The parameters used in the simulations are read from the following
 data files: 
