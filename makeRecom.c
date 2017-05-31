@@ -18,6 +18,10 @@ int main(int argc,char** argv){
   }
   
   const int nloci=strtol(argv[2],NULL,0); 
+  if (nloci > 6){
+	fprintf(stderr,"%s\n","Number of loci should not exceed 6");
+	exit(1);
+  }
   const int nhap = (1<<nloci); //2**nloci
   /* Eventual number of entries in matrix */
   const int S=nhap*nhap*(nhap-1)/2;

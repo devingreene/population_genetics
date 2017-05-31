@@ -10,7 +10,7 @@ extern void darwinstep(double *vec, const double *fitness,const int nislands\
 extern void mutstep(double *vec,const double *mut,const int nislands,\
    	    const int nhap);
 extern void recomstep(double *vec,const double *recom,const int nislands,\
-   	      const int nhap);
+   	      const int nhap,const unsigned int *N);
 extern void migstep(double *vec,const double *mig,const int nislands,\
 		    const int nhap);
 
@@ -41,7 +41,7 @@ extern void iterateWF(const int nislands,const int nhap,			\
   mutstep((double*)vecf,mut,nislands,nhap);
   /* recombination */
   if(ifrecom)
-    recomstep((double*)vecf,recom,nislands,nhap);
+    recomstep((double*)vecf,recom,nislands,nhap,N);
     
   /* `inter-island migration' */
   /* if migration ...  */

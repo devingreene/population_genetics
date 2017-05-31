@@ -15,8 +15,8 @@ void iterateWF(const int nislands,const int nhap,			\
 	     const unsigned char ifmig);
 
 int main(int argc, char **argv){
-  if(argc<3 || argc>4){
-    printf("./exec `ngen' `nsim' `mperiod=<num>`\n");
+  if(argc<3 || argc>5){
+    printf("./exec ngen nsim [ mperiod=<num> ] [ --fixrate ]\n");
     return 0;
   }
 
@@ -32,9 +32,9 @@ int main(int argc, char **argv){
   double ifrecom;
   struct stat size[4];
   R = gsl_rng_alloc(gsl_rng_mt19937);
-  
+ 
   /* If mperiod=<num> argument is present, process this */
-  if(argc==4){
+  if(argc>3){
     if(strlen(argv[3])>32){
       fprintf(stderr,"%s\n","Third argument too long");
       exit(1);
@@ -52,7 +52,7 @@ int main(int argc, char **argv){
       exit(1);
     }
   }
-  /* else make it zero */
+  /* else make it one */
   else mperiod=1;
 
   /* Get some random bits to make a seed for gsl, */
@@ -136,15 +136,23 @@ int main(int argc, char **argv){
   }
    
    /* Now everything's loaded.  Begin simulation. */
+  int fixrate = 0;
+  if (argc > 4 && !strcmp(argv[4],"--fixrate")){
+	  fixrate = 1;
+  }
+
    for(i=0;i<nsim;++i){
      for(j=0;j<nislands;++j)
        for(k=0;k<nhap;++k)
 	 vec[j][k]=initial[j][k];
-     printf("Simulation %d:\n",i+1);
-     for(j=0;j<ngen;++j)
+	 if(!fixrate){
+		 printf("Simulation %d:\n",i+1);
+	 }
+     for(j=0;j<ngen;++j){
        iterateWF(nislands,nhap,vec,(double*)mut,(double*)recom,	\
 	       (double*)mig,(double*)fitness,ifrecom!=0,	\
 	       (nislands != 1) & (j % mperiod));
+	   /* Check if 1111...1 has gone to fixation */
      
      for(j=0;j<nislands;++j){
        for(k=0;k<nhap;++k)

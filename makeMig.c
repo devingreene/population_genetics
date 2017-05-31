@@ -194,30 +194,36 @@ number of columns");
         
     char *line=NULL,*ep,*string[3];
     /* enter the non default rates as standard input */
+	/* Error message */
+#define INVALID_INPUT_MSG { fprintf(stderr,"%s\n","Invalid input");\
+	exit(1); }
     while(1){
     entry:
-      printf("%s: ","Enter islands pair followed by rate");
+      printf("%s: ","Enter islands pair followed by rate.  EOF if default is okay");
       getline(&line,&N,stdin);
       if(feof(stdin)) {
 	printf("\n");
 	break;
       }
-      string[0]=strsep(&line," ,;:\t");
+      if(!(string[0]=strsep(&line," ,;:\t")))
+		  INVALID_INPUT_MSG;
       j=strtol(string[0],NULL,0);
       if(j<=0){
-      	fprintf(stderr,"%s\n","Invalid input");
+		  INVALID_INPUT_MSG;
 	continue; 
       }
-      string[1]=strsep(&line," ,;:\t");
+      if(!(string[1]=strsep(&line," ,;:\t")))
+		  INVALID_INPUT_MSG;
       i=strtol(string[1],NULL,0);
       if(i<=0 || i==j){
-	fprintf(stderr,"%s\n","Invalid input");
+		  INVALID_INPUT_MSG;
 	continue; 
       }	
-      string[2]=strsep(&line," ,;:\t");
+      if(!(string[2]=strsep(&line," ,;:\t")))
+		  INVALID_INPUT_MSG;
       rate=strtod(string[2],&ep);
       if(string[2]==ep){
-	fprintf(stderr,"%s\n","Invalid input");
+		  INVALID_INPUT_MSG;
 	continue;
       }
       i--;j--;
