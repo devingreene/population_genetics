@@ -29,4 +29,3 @@ void recomstep(double *vec,const double *recom,const int nislands,\
 	memcpy(vec,(double*)vec2,sizeof(double)*nislands*nhap);
 	return ;
 }
-	     

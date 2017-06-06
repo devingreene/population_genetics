@@ -33,3 +33,7 @@
 
 #Misc
 /rand_history
+/input
+
+/batch_job_t?.sh
+/table*

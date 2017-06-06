@@ -58,52 +58,52 @@ int main(int argc,char** argv){
     for(j=0;j<nhap;++j){
       if(i==j) continue;
       for(k=0;k<nhap;++k){
-	if((k&1)^(i&1)){ 
-	  /* Iterate if first locus of child not Dad's */
-	  recom[k][i][j]=0;
-	  continue; 
-	}
-	A=0;
-	for(n=0;n<nhap/2;++n){
-	  /* Shift to next locus to start replication process.  
-	     `b' is parent currently being replicated */
-	  i0=i>>1;j0=j>>1;k0=k>>1;n0=n;a=1;b=i0; 
-	  for(m=0;m<nloci-1;++m){
-	    /* if `1' then cross to other parent, and multiplicatively 
-	       accumulate probability */
-	    if(n0&1){
-	      b=(b==i0)?j0:i0;
-	      a*=link[m];
-	    }
-	    else
-	      a*=(1-link[m]);
+		  if((k&1)^(i&1)){ 
+			  /* Iterate if first locus of child not Dad's */
+			  recom[k][i][j]=0;
+			  continue; 
+		  }
+		  A=0;
+		  for(n=0;n<nhap/2;++n){
+			  /* Shift to next locus to start replication process.  
+				 `b' is parent currently being replicated */
+			  i0=i>>1;j0=j>>1;k0=k>>1;n0=n;a=1;b=i0; 
+			  for(m=0;m<nloci-1;++m){
+				  /* if `1' then cross to other parent, and multiplicatively 
+					 accumulate probability */
+				  if(n0&1){
+					  b=(b==i0)?j0:i0;
+					  a*=link[m];
+				  }
+				  else
+					  a*=(1-link[m]);
 
-	    /* Identical locus at `k'?  If not, then stop for this `k' */
-	    if((b&1)^(k0&1)){
-	      a=0;
-	      goto end;
-	    }
-	    /* else shift to next locus */
-	    i0=i0>>1;j0=j0>>1;k0=k0>>1;b=b>>1;n0=n0>>1;
+				  /* Identical locus at `k'?  If not, then stop for this `k' */
+				  if((b&1)^(k0&1)){
+					  a=0;
+					  goto end;
+				  }
+				  /* else shift to next locus */
+				  i0=i0>>1;j0=j0>>1;k0=k0>>1;b=b>>1;n0=n0>>1;
+			  }
+			  A+=a;
+end:;
+		  }
+		  /* Account for proportion `rate' of population having sex :-) */
+		  A*=rate;
+		  A+=(1-rate)*(k==i);
+		  recom[k][i][j]=A;
 	  }
-	  A+=a;
-	end:;
 	}
-	/* Account for proportion `rate' of population having sex :-) */
-	A*=rate;
-	A+=(1-rate)*(k==i);
-	recom[k][i][j]=A;
-      }
-    }
   }
-  
+
   /* "Compactify" */
   for(i=0;i<nhap;++i)
-    for(j=0;j<nhap;++j)
-      for(k=j+1;k<nhap;++k)
-	*recom2++ = recom[i][j][k] + recom[i][k][j];
+	  for(j=0;j<nhap;++j)
+		  for(k=j+1;k<nhap;++k)
+			  *recom2++ = recom[i][j][k] + recom[i][k][j];
   recom2-=S;
-  
+
   /* write resulting matrix to file `recom'*/
   fiopen("recom","w",stream);
   fiwrite(&rate,sizeof(double),1,stream);

@@ -197,62 +197,62 @@ number of columns");
 	/* Error message */
 #define INVALID_INPUT_MSG { fprintf(stderr,"%s\n","Invalid input");\
 	exit(1); }
-    while(1){
-    entry:
-      printf("%s: ","Enter islands pair followed by rate.  EOF if default is okay");
-      getline(&line,&N,stdin);
-      if(feof(stdin)) {
-	printf("\n");
-	break;
-      }
-      if(!(string[0]=strsep(&line," ,;:\t")))
-		  INVALID_INPUT_MSG;
-      j=strtol(string[0],NULL,0);
-      if(j<=0){
-		  INVALID_INPUT_MSG;
-	continue; 
-      }
-      if(!(string[1]=strsep(&line," ,;:\t")))
-		  INVALID_INPUT_MSG;
-      i=strtol(string[1],NULL,0);
-      if(i<=0 || i==j){
-		  INVALID_INPUT_MSG;
-	continue; 
-      }	
-      if(!(string[2]=strsep(&line," ,;:\t")))
-		  INVALID_INPUT_MSG;
-      rate=strtod(string[2],&ep);
-      if(string[2]==ep){
-		  INVALID_INPUT_MSG;
-	continue;
-      }
-      i--;j--;
-      A=Mig[i][j];
-      B=Mig[j][j];
-      Mig[i][j]=rate;
-      Mig[j][j]+=A-rate;
-      if(I==2){
-	C=Mig[j][i];
-	D=Mig[i][i];
-	Mig[j][i]=rate;
-	Mig[i][i]+=C-rate;
-      }
-      if(Mig[i][i]<0 || Mig[j][j]<0){
-	/*revert*/
-	Mig[i][j] = A;
-	Mig[j][j]=B;
-	if(I==2){
-	  Mig[j][i]=C;
-	  Mig[i][i]=D;
+	while(1){
+entry:
+		printf("%s: ","Enter islands pair followed by rate.  EOF if default is okay");
+		getline(&line,&N,stdin);
+		if(feof(stdin)) {
+			printf("\n");
+			break;
+		}
+		if(!(string[0]=strsep(&line," ,;:\t")))
+			INVALID_INPUT_MSG;
+		j=strtol(string[0],NULL,0);
+		if(j<=0){
+			INVALID_INPUT_MSG;
+			continue; 
+		}
+		if(!(string[1]=strsep(&line," ,;:\t")))
+			INVALID_INPUT_MSG;
+		i=strtol(string[1],NULL,0);
+		if(i<=0 || i==j){
+			INVALID_INPUT_MSG;
+			continue; 
+		}	
+		if(!(string[2]=strsep(&line," ,;:\t")))
+			INVALID_INPUT_MSG;
+		rate=strtod(string[2],&ep);
+		if(string[2]==ep){
+			INVALID_INPUT_MSG;
+			continue;
+		}
+		i--;j--;
+		A=Mig[i][j];
+		B=Mig[j][j];
+		Mig[i][j]=rate;
+		Mig[j][j]+=A-rate;
+		if(I==2){
+			C=Mig[j][i];
+			D=Mig[i][i];
+			Mig[j][i]=rate;
+			Mig[i][i]+=C-rate;
+		}
+		if(Mig[i][i]<0 || Mig[j][j]<0){
+			/*revert*/
+			Mig[i][j] = A;
+			Mig[j][j]=B;
+			if(I==2){
+				Mig[j][i]=C;
+				Mig[i][i]=D;
+			}
+			fprintf(stderr,"%s\n","Rate entered is too large");
+			goto entry;
+		}
+
+		/* print out confirmation */
+		fprintf(stderr,"%d%s->%d: %e\n",j+1,((I==2)?"<":""),i+1,rate);
 	}
-	fprintf(stderr,"%s\n","Rate entered is too large");
-	goto entry;
-      }
-      
-      /* print out confirmation */
-      fprintf(stderr,"%d%s->%d: %e\n",j+1,((I==2)?"<":""),i+1,rate);
-    }
-    sizeofmig=nislands*nislands*sizeof(double);
+	sizeofmig=nislands*nislands*sizeof(double);
   }
   else exit(1); // this shouldn't happen
 
