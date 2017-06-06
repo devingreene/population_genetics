@@ -35,5 +35,20 @@
 /rand_history
 /input
 
-/batch_job_t?.sh
+#Tables
 /table*
+
+#Image files
+*.png
+
+#Shell scripts
+*.sh
+
+#Python scripts and droppings
+*.py
+__pycache__
+
+#Text files
+*.txt
+#Except README.txt
+!/README.txt

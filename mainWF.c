@@ -5,16 +5,20 @@
 #include<sys/stat.h>
 #include<unistd.h>
 #include<string.h>
+#include<math.h>
 #include"forthis.h"
 
-#define minprop(vec,olen,ilen)  unsigned int min = 0x7fffffff,sum;\
+#define FIX_THRES 0.99
+
+#define minprop(vec,olen,ilen)  double min = INFINITY;\
+	unsigned int sum;\
 	int i,j;\
 	for(i=0;i<(olen);i++){\
 		sum = 0;\
 		for(j=0;j<(ilen);j++){\
 			sum += (vec)[i][j] ;\
 		}\
-		double prop = (vec)[i][nhap-1]/(double)sum;\
+		double prop = (double)((vec)[i][nhap-1])/sum;\
 		min = (prop < min)?prop:min;\
 	}
 
@@ -167,7 +171,7 @@ int main(int argc, char **argv){
 					(nislands != 1) & !(j % mperiod));
 			if(fixrate){
 				minprop(vec,nislands,nhap);
-				if(min > 0.99){
+				if(min > FIX_THRES){
 					fixcount += 1;
 					break;
 				}
