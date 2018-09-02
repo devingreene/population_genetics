@@ -22,3 +22,6 @@
 
 #Misc
 /rand_history
+
+#pycache
+__pycache__
