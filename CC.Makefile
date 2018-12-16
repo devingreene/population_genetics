@@ -5,7 +5,7 @@ all : execCC makeMut makeRecom makeMig settle readMut readMig readRecom readPara
 ifeq ($(CFLAGS),-ggdb)
 OPTIMIZATION_FLAG=
 else 
-OPTIMIZATION_FLAG = -O3 -Wno-unused-result
+OPTIMIZATION_FLAG = -O2 -Wno-unused-result
 endif
 
 MAIN_SOURCE_FILES = migstep.c darwinstep.c mutstep.c recomstep.c iterateCC.c mainCC.c 
