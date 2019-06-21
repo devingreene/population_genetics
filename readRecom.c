@@ -14,7 +14,11 @@ int main(){
   double rate;
   /* set stat structure to 0 */
   struct stat *buf =calloc(sizeof(struct stat),1);
-  stat("recom",buf);
+  if(stat("recom",buf) < 0)
+  {
+      fprintf(stderr,"File \"recom\" doesn't exist\n");
+      exit(1);
+  }
   fsize=buf->st_size;
   /* Check file integrity.  `dim' corresponds to `nhap' */
   for(dim=1;(S+1)*8<fsize;++dim)

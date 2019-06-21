@@ -4,8 +4,11 @@
 
 #define fiopen(arg1,arg2,arg3) {					\
     if((arg3=fopen(arg1,arg2))==NULL)					\
+    {   \
       fprintf(stderr,"%s\n",					\
 	      "Error opening file");				\
+        exit(1); \
+    } \
   }
 
 #define firead(arg1,arg2,arg3,arg4) {fread(arg1,arg2,arg3,arg4);\

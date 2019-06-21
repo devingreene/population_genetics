@@ -70,11 +70,27 @@ int main(int argc, char **argv){
 
 	/* Open files and start by recording their sizes */
 
-	fd[0]=open("census",O_RDONLY);
-	fd[1]=open("mut",O_RDONLY);
-	fd[2]=open("recom",O_RDONLY);
-	fd[3]=open("mig",O_RDONLY);
-
+#define err_msg(file) fprintf(stderr,"File \"%s\" doesn't exist\n",(file))
+	if((fd[0]=open("census",O_RDONLY)) < 0)
+    {
+        err_msg("census");
+        exit(1);
+    }
+	if((fd[1]=open("mut",O_RDONLY)) < 0)
+    {
+        err_msg("mut");
+        exit(1);
+    }
+	if((fd[2]=open("recom",O_RDONLY)) < 0)
+    {
+        err_msg("recom");
+        exit(1);
+    }
+	if((fd[3]=open("mig",O_RDONLY)) < 0)
+    {
+        err_msg("mig");
+        exit(1);
+    }
 
 	for(i=0;i<4;i++){
 		fstat(fd[i],&size[i]);
@@ -160,8 +176,9 @@ int main(int argc, char **argv){
 
 		memcpy(vec,initial,nhap*nislands*sizeof(int));
 
-		if(fixrate && !((i+1) % 10)){
-			fprintf(stderr,"%u%s",i+1,(nsim-i-1>=10)?", ":"\n");
+        int report = (nsim < 100)?10:(10*(nsim/100));
+		if(fixrate && !((i+1) % report)){
+			fprintf(stderr,"%u%s",i+1,(nsim-i-1>=report)?", ":"\n");
 			fflush(stderr);
 		}
 

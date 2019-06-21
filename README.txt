@@ -59,8 +59,8 @@ and ordered numerically as if they were base 2 numbers. Keyword
 2->2, ...,g n->1, ... Keyword `symmetric' prompts for entry of
 mutation rate 1->2,g 1->3, ...,2->3, ..., n-1->n.
 
-	`makeMig' creates the data file `mig' containing the parameters for inter-island
-	migration.  There are three keywords:
+`makeMig' creates the data file `mig' containing the parameters for inter-island
+migration.  There are three keywords:
 	
 	`array': Must be followed dim1 dim2.  Forms a dim1 by dim2 array of
 	islands.  Adjacent islands (where diagonal neighbors are considered
