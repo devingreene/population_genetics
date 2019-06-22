@@ -1,7 +1,3 @@
-.PHONY : all
-
-all : execWF makeMut makeRecom makeMig settle readMut readMig readRecom readParameters
-
 ifeq ($(CFLAGS),-ggdb)
 OPTIMIZATION_FLAG=
 else 
@@ -11,13 +7,23 @@ endif
 MAIN_SOURCE_FILES = mainWF.c iterateWF.c darwinstep.c mutstep.c recomstep.c \
 	migstep.c 
 
-AUXILIARY_SOURCE_FILES = makeMut.c makeRecom.c makeMig.c settle.c readMut.c readMig.c readRecom.c readParameters.c
+AUX_SOURCE_FILES = makeMut.c makeRecom.c makeMig.c settle.c readMut.c readMig.c readRecom.c readParameters.c
 
-AUXILIARY_BINARIES = makeMut makeRecom makeMig settle readMut readMig readRecom readParameters
+AUX_BINARIES = makeMut makeRecom makeMig settle readMut readMig readRecom readParameters
+
+aux_bins : $(AUX_BINARIES)
+
+finite: execWF
+
+infinite: execWF_inf
 
 execWF : $(MAIN_SOURCE_FILES) 
 	cc -Wall -Wextra  $(CFLAGS) $(OPTIMIZATION_FLAG) $(MAIN_SOURCE_FILES) \
-	-lgsl -lgslcblas -o execWF
+	    -lgsl -lgslcblas -o execWF
+
+execWF_inf : $(MAIN_SOURCE_FILES)
+	cc -Wall -Wextra $(CFLAGS) $(OPTIMIZATION_FLAG) $(MAIN_SOURCE_FILES) \
+	    -DINFINITE -o execWF_inf
 
 makeMut : makeMut.c
 	cc -Wall -Wextra  $(CFLAGS) $(OPTIMIZATION_FLAG) makeMut.c -o makeMut
@@ -44,5 +50,5 @@ readParameters : readParameters.c
 	cc -Wall -Wextra $(CFLAGS) $(OPTIMIZATION_FLAG) readParameters.c -o readParameters -lm
 
 clean:
-	rm execWF $(AUXILIARY_BINARIES)
+	rm -f execWF execWF_inf $(AUX_BINARIES)
 

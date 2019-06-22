@@ -1,6 +1,10 @@
 #include<stdlib.h>
 #include<stdio.h>
+
+#ifndef INFINITE
 #include<gsl/gsl_rng.h>
+#endif
+
 #include<fcntl.h>
 #include<sys/stat.h>
 #include<unistd.h>
@@ -10,8 +14,14 @@
 
 #define FIX_THRES 0.99
 
+#ifdef INFINITE
+#define NTYPE double
+#else
+#define NTYPE unsigned int
+#endif
+
 #define minprop(vec,olen,ilen)  double min = INFINITY;\
-	unsigned int sum;\
+	NTYPE sum;\
 	int i,j;\
 	for(i=0;i<(olen);i++){\
 		sum = 0;\
@@ -22,10 +32,12 @@
 		min = (prop < min)?prop:min;\
 	}
 
+#ifndef INFINITE
 gsl_rng * R;
-void iterateWF(const int nislands,const int nhap,			\
-		unsigned int vec[nislands][nhap],double *mut,double *recom, \
-		double *mig,const double *fitness,const unsigned char ifrecom,\
+#endif
+void iterateWF(const int nislands,const int nhap,			
+		NTYPE vec[nislands][nhap],double *mut,double *recom, 
+		double *mig,const double *fitness,const unsigned char ifrecom,
 		const unsigned char ifmig);
 
 int main(int argc, char **argv){
@@ -42,7 +54,9 @@ int main(int argc, char **argv){
 	FILE *censusstream,*mutstream,*recomstream,*migstream;
 	double ifrecom;
 	struct stat size[4];
+#ifndef INFINITE
 	R = gsl_rng_alloc(gsl_rng_mt19937);
+#endif
 
 	/* If mperiod=<num> argument is present, process this */
 	if(argc>3){
@@ -66,7 +80,9 @@ int main(int argc, char **argv){
 	int fd_0=open("/dev/urandom",O_RDONLY);
 	read(fd_0,(void*)&seed,sizeof(seed));
 	close(fd_0);
+#ifndef INFINITE
 	gsl_rng_set(R,seed);
+#endif
 
 	/* Open files and start by recording their sizes */
 
@@ -125,7 +141,7 @@ int main(int argc, char **argv){
 
 	/* Read data files to set up parameters */
 	unsigned int initial[nislands][nhap];
-	unsigned int vec[nislands][nhap];
+	NTYPE vec[nislands][nhap];
 	double fitness[nhap];
 
 	firead(fitness,sizeof(fitness),1,censusstream);
@@ -173,8 +189,17 @@ int main(int argc, char **argv){
 	}
 
 	for(i=0;i<nsim;++i){
-
+        
+#ifdef INFINITE
+        {
+            int i,j;
+            for(i = 0 ; i < nislands ; ++i)
+                for(j = 0 ; j < nhap ; ++j)
+                    vec[i][j] = (NTYPE)initial[i][j];
+        }
+#else
 		memcpy(vec,initial,nhap*nislands*sizeof(int));
+#endif
 
         int report = (nsim < 100)?10:(10*(nsim/100));
 		if(fixrate && !((i+1) % report)){
@@ -198,7 +223,11 @@ int main(int argc, char **argv){
 			printf("Simulation %d:\n",i+1);
 			for(j=0;j<nislands;++j){
 				for(k=0;k<nhap;++k)
+#ifdef INFINITE
+					printf("%.2f ",vec[j][k]);
+#else
 					printf("%u ",vec[j][k]);
+#endif
 				printf("\n");
 			}
 			fflush(stdout);

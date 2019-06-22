@@ -2,6 +2,12 @@
 #include<stdio.h>
 #include<string.h>
 
+#ifdef INFINITE
+#define NTYPE double
+#else
+#define NTYPE unsigned int
+#endif
+
 #define Vec ((double(*)[nhap])vec)
 
 /* Routine for carrying out recombination step in `iterate' */
@@ -10,8 +16,8 @@
 /*   needed to perform the computation below  */
 
 
-void recomstep(double *vec,const double *recom,const int nislands,\
-	       const int nhap,const unsigned int *N){
+void recomstep(double *vec,const double *recom,const int nislands,
+	       const int nhap,const NTYPE *N){
 	int i,j,k,m;
 	double* Recom;
 	double vec2[nislands][nhap];
